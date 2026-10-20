@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ហ្គេមចិញ្ចឹមសត្វ និងដាំដុះខ្មែរ</title>
+    <style>
+        body {
+            font-family: 'Khmer OS Siemreap', Arial, sans-serif;
+            background-color: #eef2f3;
+            text-align: center;
+            padding: 20px;
+            color: #333;
+        }
+        .game-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        .stats {
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .farm-yard {
+            font-size: 50px;
+            margin: 15px 0;
+            min-height: 70px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-family: 'Khmer OS Siemreap', Arial, sans-serif;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .shop-section {
+            margin-top: 20px;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+        }
+        .shop-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff3e0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+        .pay-btn {
+            background-color: #ff9800;
+        }
+        .pay-btn:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        <h2>🏡 កសិដ្ឋានបែបខ្មែរ</h2>
+        
+        <div class="stats">
+            <p>💰 ប្រាក់/ពិន្ទុ: <span id="money">100</span> G</p>
+            <p>🌱 ដើមឈើ/សត្វក្នុងកសិដ្ឋាន:</p>
+            <div class="farm-yard" id="inventory">🐖 ដើមដូង</div>
+        </div>
+
+        <button onclick="workFarm()">រកស៊ីចិញ្ចឹមជីវិត (+10 G)</button>
+
+        <div class="shop-section">
+            <h3>🛒 ហាងទិញសត្វ និងដើមឈើ</h3>
+            
+            <div class="shop-item">
+                <span>🐄 គោ (តម្លៃ: 50 G)</span>
+                <button onclick="buyItem('🐄 គោ', 50)">ទិញ</button>
+            </div>
+            
+            <div class="shop-item">
+                <span>🍌 ដើមចេក (តម្លៃ: 30 G)</span>
+                <button onclick="buyItem('🍌 ដើមចេក', 30)">ទិញ</button>
+            </div>
+
+            <div class="shop-item">
+                <span>⭐ ទិញលុយពិត (Telegram Stars)</span>
+                <button class="pay-btn" onclick="buyWithRealMoney()">ដាក់លុយ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let money = 100;
+        let ownedItems = ["🐖 ជ្រូក", "🥥 ដើមដូង"];
+
+        function updateUI() {
+            document.getElementById('money').innerText = money;
+            document.getElementById('inventory').innerText = ownedItems.join(" , ");
+        }
+
+        function workFarm() {
+            money += 10;
+            updateUI();
+        }
+
+        function buyItem(itemName, cost) {
+            if (money >= cost) {
+                money -= cost;
+                ownedItems.push(itemName);
+                updateUI();
+                alert("ទិញ " + itemName + " បានដោយជោគជ័យ!");
+            } else {
+                alert("លុយ ឬពិន្ទុរបស់អ្នកមិនគ្រប់គ្រាន់ទេ!");
+            }
+        }
+
+        function buyWithRealMoney() {
+            // កន្លែងនេះសម្រាប់ភ្ជាប់ជាមួយ Telegram Web App Payment API ពេលដាក់លុយពិតប្រាកដ
+            alert("មុខងារទូទាត់ប្រាក់ពិត (Telegram Stars) នឹងត្រូវតភ្ជាប់ទីនេះ!");
+            // ឧទាហរណ៍បន្ថែមលុយពេលតេស្ត៖
+            money += 200;
+            updateUI();
+        }
+
+        updateUI();
+    </script>
+
+</body>
+</html>
