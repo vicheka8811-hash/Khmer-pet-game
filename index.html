@@ -3,422 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>កសិដ្ឋានមាស - Khmer Farm Pro & Membership</title>
+    <title>3D World Farm - Premium Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: { 500: '#10B981', 600: '#059669', 700: '#047857' }
-                    }
-                }
-            }
-        }
-    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Preahvihear&family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Kantumruy Pro', 'Preahvihear', sans-serif; }
-        @keyframes float {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-8px) scale(1.05); }
-            100% { transform: translateY(0px) scale(1); }
-        }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
-            50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.8); }
-        }
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .glow-effect { animation: pulse-glow 2s infinite; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Kantumruy Pro', sans-serif; }</style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
 
-    <!-- LOGIN SCREEN -->
-    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
-            <div class="absolute -top-12 -right-12 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl"></div>
-            
-            <div class="text-center mb-8">
-                <div class="inline-flex p-4 bg-emerald-500/10 text-emerald-400 rounded-2xl text-3xl mb-3 glow-effect">
-                    <i class="fa-solid fa-seedling"></i>
-                </div>
-                <h1 class="text-2xl font-bold tracking-wide">កសិដ្ឋានមាស (Khmer Farm Pro)</h1>
-                <p class="text-slate-400 text-sm mt-1">ចូលលេងដើម្បីកម្សាន្ត ប្រមូលផល និងឈ្នះរង្វាន់ជាកាក់!</p>
+    <!-- HEADER / CURRENCY BAR -->
+    <header class="flex items-center justify-between p-4 border-b border-slate-900 bg-slate-900/80 backdrop-blur sticky top-0 z-40">
+        <div class="flex items-center gap-2">
+            <div class="w-9 h-9 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center font-bold">3D</div>
+            <h1 class="font-bold text-sm">World Farm 3D</h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <!-- Free Coins -->
+            <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-3 py-1 rounded-full text-xs">
+                <i class="fa-solid fa-coins text-amber-400"></i>
+                <span id="freeCoins" class="font-bold text-amber-400">1,250</span>
             </div>
-
-            <div class="space-y-4">
-                <button onclick="login('Telegram')" class="w-full flex items-center justify-center gap-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3.5 px-4 rounded-xl transition shadow-lg shadow-sky-500/20">
-                    <i class="fa-brands fa-telegram text-xl"></i> ចូលលេងតាមរយៈ Telegram
-                </button>
-                <button onclick="login('Google')" class="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-800 font-semibold py-3.5 px-4 rounded-xl transition shadow-lg">
-                    <i class="fa-brands fa-google text-red-500 text-xl"></i> ចូលលេងតាមរយៈ Google
-                </button>
-
-                <div class="relative flex py-2 items-center">
-                    <div class="flex-grow border-t border-slate-800"></div>
-                    <span class="flex-shrink mx-4 text-slate-500 text-xs uppercase tracking-wider">ឬប្រើប្រាស់អ៊ីមែល</span>
-                    <div class="flex-grow border-t border-slate-800"></div>
-                </div>
-
-                <form onsubmit="handleEmailLogin(event)" class="space-y-3">
-                    <input type="email" id="emailInput" placeholder="អុីមែល (Email)" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500">
-                    <input type="password" id="passInput" placeholder="ពាក្យសម្ងាត់ (Password)" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-emerald-500">
-                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 px-4 rounded-xl transition shadow-lg shadow-emerald-600/20">
-                        ចូលគណនី (Sign In)
-                    </button>
-                </form>
+            <!-- Premium Gems (Top-up Required) -->
+            <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-3 py-1 rounded-full text-xs">
+                <i class="fa-solid fa-gem text-cyan-400"></i>
+                <span id="premiumGems" class="font-bold text-cyan-400">50</span>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- MAIN GAME APP -->
-    <div id="gameApp" class="hidden flex-1 flex flex-col max-w-md mx-auto w-full border-x border-slate-900 bg-slate-950">
+    <!-- SHOP CONTAINER -->
+    <main class="flex-1 p-4 max-w-md mx-auto w-full space-y-6">
         
-        <!-- HEADER -->
-        <header class="flex items-center justify-between p-4 border-b border-slate-900 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold" id="userAvatar">U</div>
-                <div>
-                    <h2 class="text-sm font-bold leading-tight" id="userName">កសិករ</h2>
-                    <span class="text-xs text-emerald-400 flex items-center gap-1"><i class="fa-solid fa-shield-halved text-[10px]"></i> កសិករកម្រិតទី១</span>
+        <!-- SECTION 1: TOP-UP STORE (បង់លុយទិញកាក់/ពេជ្រមុន) -->
+        <div class="bg-gradient-to-br from-cyan-950/40 to-slate-900 border border-cyan-500/30 rounded-2xl p-4">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="font-bold text-sm text-cyan-400 flex items-center gap-2">
+                    <i class="fa-solid fa-credit-card"></i> បញ្ចូលទឹកប្រាក់ (Top-up Store)
+                </h3>
+                <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full">Telegram Stars ⭐</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-3">ទិញពេជ្រ/កាក់ពិសេស ដើម្បីយកទៅដោះសោសត្វ និងដើមឈើកម្រៗនៅលើផែនដី!</p>
+            
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-center">
+                    <div class="text-cyan-400 text-xl mb-1"><i class="fa-solid fa-gem"></i></div>
+                    <h4 class="font-bold text-xs">100 ពេជ្រ</h4>
+                    <p class="text-[10px] text-slate-400 mb-2">តម្លៃ: 50 Stars</p>
+                    <button onclick="topUpGems(100, '50 Stars')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-1.5 rounded-lg text-xs font-bold transition">ទិញឥឡូវ</button>
+                </div>
+                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-center">
+                    <div class="text-cyan-400 text-xl mb-1"><i class="fa-solid fa-gem"></i></div>
+                    <h4 class="font-bold text-xs">500 ពេជ្រ + ហ្វ្រី 50</h4>
+                    <p class="text-[10px] text-slate-400 mb-2">តម្លៃ: 200 Stars</p>
+                    <button onclick="topUpGems(550, '200 Stars')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-1.5 rounded-lg text-xs font-bold transition">ទិញឥឡូវ</button>
                 </div>
             </div>
-            
-            <div class="flex items-center gap-2">
-                <!-- Currency Badge -->
-                <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full">
-                    <i class="fa-solid fa-coins text-amber-400"></i>
-                    <span id="coinCount" class="font-bold text-amber-400 text-sm">1,250</span>
-                </div>
-                <!-- Theme Toggle -->
-                <button onclick="toggleTheme()" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition">
-                    <i id="themeIcon" class="fa-solid fa-sun"></i>
-                </button>
-            </div>
-        </header>
+        </div>
 
-        <!-- NAVIGATION TABS -->
-        <nav class="flex border-b border-slate-900 bg-slate-900/30 overflow-x-auto">
-            <button onclick="switchTab('farm')" id="tabFarm" class="flex-1 py-3 px-3 text-xs font-bold text-emerald-400 border-b-2 border-emerald-500 transition flex items-center justify-center gap-1.5 whitespace-nowrap">
-                <i class="fa-solid fa-tree"></i> ចម្ការ
-            </button>
-            <button onclick="switchTab('animals')" id="tabAnimals" class="flex-1 py-3 px-3 text-xs font-bold text-slate-400 border-b-2 border-transparent transition flex items-center justify-center gap-1.5 whitespace-nowrap">
-                <i class="fa-solid fa-paw"></i> សត្វ
-            </button>
-            <button onclick="switchTab('shop')" id="tabShop" class="flex-1 py-3 px-3 text-xs font-bold text-slate-400 border-b-2 border-transparent transition flex items-center justify-center gap-1.5 whitespace-nowrap">
-                <i class="fa-solid fa-store"></i> ហាងកាក់
-            </button>
-            <button onclick="switchTab('membership')" id="tabMembership" class="flex-1 py-3 px-3 text-xs font-bold text-slate-400 border-b-2 border-transparent transition flex items-center justify-center gap-1.5 whitespace-nowrap text-amber-400">
-                <i class="fa-solid fa-crown"></i> VIP
-            </button>
-        </nav>
-
-        <!-- CONTENT CONTAINER -->
-        <main class="flex-1 p-4 pb-24 overflow-y-auto">
+        <!-- SECTION 2: 3D REAL-WORLD SHOP (ទិញសត្វ និងដើមឈើស្អាតៗ) -->
+        <div>
+            <h3 class="font-bold text-sm text-amber-400 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-earth-americas"></i> ហាងទំនិញ 3D ធម្មជាតិពិភពលោក
+            </h3>
             
-            <!-- TAB 1: FARM (TREES) -->
-            <div id="contentFarm" class="space-y-4">
-                <div class="bg-gradient-to-br from-emerald-900/40 to-slate-900 border border-emerald-500/20 rounded-2xl p-5 relative overflow-hidden">
-                    <div class="absolute right-[-10px] bottom-[-10px] text-emerald-500/10 text-8xl pointer-events-none">
-                        <i class="fa-solid fa-tree"></i>
+            <div class="space-y-3">
+                <!-- Item 1 -->
+                <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-horse"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs">សេះអារ៉ាប់ 3D (Arabian Horse)</h4>
+                            <span class="text-[11px] text-cyan-400 font-bold"><i class="fa-solid fa-gem"></i> 120 ពេជ្រ</span>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-lg mb-1 text-emerald-400">ដើមឈើមាសប្រណិត</h3>
-                    <p class="text-xs text-slate-300 mb-4">ស្រោចទឹកៀងរាល់ ២ម៉ោងម្តង ដើម្បីធំធាត់ និងទទួលបានផលជាកាក់!</p>
-                    
-                    <div class="flex flex-col items-center justify-center py-6 bg-slate-950/60 rounded-xl border border-slate-800/80 mb-4">
-                        <div id="treeVisual" class="text-6xl text-emerald-500 animate-float mb-2 filter drop-shadow-[0_10px_10px_rgba(16,185,129,0.3)]">
+                    <button onclick="buyRealItem('សេះអារ៉ាប់ 3D', 120, 'gem')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">ទិញ</button>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center text-2xl">
                             <i class="fa-solid fa-tree"></i>
                         </div>
-                        <span id="treeStatusText" class="text-xs font-semibold px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full">រួចរាល់សម្រាប់ស្រោចទឹក!</span>
-                    </div>
-
-                    <div class="space-y-1.5 mb-4">
-                        <div class="flex justify-between text-xs font-medium text-slate-400">
-                            <span>ពេលរង់ចាំស្រោចទឹកថ្មី</span>
-                            <span id="treeTimerDisplay">02:00:00</span>
-                        </div>
-                        <div class="w-full bg-slate-950 rounded-full h-2.5 overflow-hidden border border-slate-800">
-                            <div id="treeProgressBar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 100%;"></div>
+                        <div>
+                            <h4 class="font-bold text-xs">ដើមសាក់ខូរ៉ាជប៉ុន (Cherry Blossom)</h4>
+                            <span class="text-[11px] text-cyan-400 font-bold"><i class="fa-solid fa-gem"></i> 80 ពេជ្រ</span>
                         </div>
                     </div>
-
-                    <button onclick="waterTree()" id="waterBtn" class="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-slate-950 font-bold py-3.5 px-4 rounded-xl transition shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-droplet"></i> ស្រោចទឹកដើមឈើ (+50 🪙)
-                    </button>
-                </div>
-
-                <!-- Premium Collection Showcase -->
-                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4">
-                    <h4 class="font-bold text-sm mb-3 text-slate-200 flex items-center gap-2">
-                        <i class="fa-solid fa-spa text-amber-400"></i> សួនផ្កា និងដើមឈើកម្រ (Premium Zone)
-                    </h4>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-center">
-                            <div class="text-3xl text-rose-400 mb-1"><i class="fa-solid fa-spa"></i></div>
-                            <h5 class="text-xs font-bold">ដើមផ្កាកុលាបមាស</h5>
-                            <span class="text-[10px] text-amber-400 font-bold">តម្លៃ: 5,000 🪙</span>
-                        </div>
-                        <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-center">
-                            <div class="text-3xl text-purple-400 mb-1"><i class="fa-solid fa-rainbow"></i></div>
-                            <h5 class="text-xs font-bold">ដើមផ្កាគីរីរម្យ</h5>
-                            <span class="text-[10px] text-amber-400 font-bold">តម្លៃ: 12,000 🪙</span>
-                        </div>
-                    </div>
+                    <button onclick="buyRealItem('ដើមសាក់ខូរ៉ាជប៉ុន', 80, 'gem')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">ទិញ</button>
                 </div>
             </div>
+        </div>
 
-            <!-- TAB 2: ANIMALS FARM -->
-            <div id="contentAnimals" class="hidden space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="font-bold text-base text-emerald-400 flex items-center gap-2">
-                        <i class="fa-solid fa-paw"></i> កសិដ្ឋានសត្វចិញ្ចឹមខ្ជូតៗ
-                    </h3>
-                    <span class="text-xs text-slate-400">មានសត្វ: <span id="animalCount">2</span>/6</span>
-                </div>
+    </main>
 
-                <div class="grid grid-cols-2 gap-3" id="animalListContainer">
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center relative overflow-hidden">
-                        <div class="text-4xl text-amber-500 mb-2 animate-float">
-                            <i class="fa-solid fa-cow"></i>
-                        </div>
-                        <h4 class="font-bold text-sm">គោក្របីមាស</h4>
-                        <p class="text-[11px] text-slate-400 mb-3">ផលិតកាក់រៀងរាល់ម៉ោង</p>
-                        <button onclick="collectAnimal('គោក្របីមាស', 20)" class="w-full bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 text-xs font-bold py-2 rounded-xl border border-emerald-500/30 transition">
-                            ប្រមូលផល (+20 🪙)
-                        </button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-center relative overflow-hidden">
-                        <div class="text-4xl text-pink-400 mb-2 animate-float">
-                            <i class="fa-solid fa-piggy-bank"></i>
-                        </div>
-                        <h4 class="font-bold text-sm">ជ្រូកកំប្លែង</h4>
-                        <p class="text-[11px] text-slate-400 mb-3">រកប្រាក់ចំណូលបន្ថែម</p>
-                        <button onclick="collectAnimal('ជ្រូកកំប្លែង', 15)" class="w-full bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 text-xs font-bold py-2 rounded-xl border border-emerald-500/30 transition">
-                            ប្រមូលផល (+15 🪙)
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 3: SHOP (COINS PACKAGES VIA TELEGRAM STARS) -->
-            <div id="contentShop" class="hidden space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="font-bold text-base text-amber-400 flex items-center gap-2">
-                        <i class="fa-solid fa-store"></i> ហាងលក់កាក់ (Telegram Stars)
-                    </h3>
-                    <a href="https://t.me/YourAdminUsername" target="_blank" class="text-xs text-sky-400 hover:underline flex items-center gap-1">
-                        <i class="fa-solid fa-headset"></i> Chat Admin
-                    </a>
-                </div>
-                <p class="text-xs text-slate-400">ជ្រើសរើសកញ្ចប់កាក់ដែលលោកអ្នកពេញចិត្ត បង់ប្រាក់សុវត្ថិភាពតាម Telegram Stars៖</p>
-
-                <div class="space-y-2.5">
-                    <!-- 9 Packages -->
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm">1. កញ្ចប់ចាប់ផ្តើម (Starter)</h4><span class="text-xs text-amber-400 font-bold">10 កាក់</span></div>
-                        <button onclick="buyCoinPackage(10, 10)" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">10 Stars ⭐</button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm">2. កញ្ចប់តូច (Mini Pack)</h4><span class="text-xs text-amber-400 font-bold">50 កាក់ <span class="text-emerald-400 text-[10px]">(+2 ហ្វ្រី)</span></span></div>
-                        <button onclick="buyCoinPackage(52, 45)" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">45 Stars ⭐</button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm">3. កញ្ចប់ធម្មតា (Standard)</h4><span class="text-xs text-amber-400 font-bold">200 កាក់ <span class="text-emerald-400 text-[10px]">(+15 ហ្វ្រី)</span></span></div>
-                        <button onclick="buyCoinPackage(215, 150)" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">150 Stars ⭐</button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm">4. កញ្ចប់មធ្យម (Medium)</h4><span class="text-xs text-amber-400 font-bold">1,000 កាក់ <span class="text-emerald-400 text-[10px]">(+80 ហ្វ្រី)</span></span></div>
-                        <button onclick="buyCoinPackage(1080, 600)" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">600 Stars ⭐</button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm">5. កញ្ចប់ធំ (Large Pack)</h4><span class="text-xs text-amber-400 font-bold">5,000 កាក់ <span class="text-emerald-400 text-[10px]">(+500 ហ្វ្រី)</span></span></div>
-                        <button onclick="buyCoinPackage(5500, 2500)" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">2,500 Stars ⭐</button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm">6. កញ្ចប់កម្រិតខ្ពស់ (Advanced)</h4><span class="text-xs text-amber-400 font-bold">15,000 កាក់ <span class="text-emerald-400 text-[10px]">(+2k ហ្វ្រី)</span></span></div>
-                        <button onclick="buyCoinPackage(17000, 7000)" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">7,000 Stars ⭐</button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm">7. កញ្ចប់ពិសេស (Super Pack)</h4><span class="text-xs text-amber-400 font-bold">50,000 កាក់ <span class="text-emerald-400 text-[10px]">(+8k ហ្វ្រី)</span></span></div>
-                        <button onclick="buyCoinPackage(58000, 20000)" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">20,000 Stars ⭐</button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm">8. កញ្ចប់មហាសេដ្ឋី (Mega)</h4><span class="text-xs text-amber-400 font-bold">200,000 កាក់ <span class="text-emerald-400 text-[10px]">(+35k ហ្វ្រី)</span></span></div>
-                        <button onclick="buyCoinPackage(235000, 75000)" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">75,000 Stars ⭐</button>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                        <div><h4 class="font-bold text-sm text-amber-400">9. កញ្ចប់ស្តេចកសិដ្ឋាន (Ultimate)</h4><span class="text-xs text-amber-400 font-bold">1,000,000 កាក់ <span class="text-emerald-400 text-[10px]">(+200k ហ្វ្រី + សត្វហ្វ្រី)</span></span></div>
-                        <button onclick="buyCoinPackage(1200000, 300000)" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">300k Stars ⭐</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB 4: MEMBERSHIP (VIP, MONTHLY, YEARLY) -->
-            <div id="contentMembership" class="hidden space-y-4">
-                <h3 class="font-bold text-base text-amber-400 flex items-center gap-2">
-                    <i class="fa-solid fa-crown"></i> កញ្ចប់សមាជិកភាពពិសេស (Membership)
-                </h3>
-                <p class="text-xs text-slate-400">បង់ប្រាក់ដើម្បីទទួលបានកាក់ និងអត្ថប្រយោជន៍ពិសេសជាច្រើនក្នុងហ្គេម!</p>
-
-                <div class="space-y-4">
-                    <!-- VIP Package -->
-                    <div class="bg-gradient-to-br from-slate-900 to-slate-900 border border-amber-500/30 rounded-2xl p-4 relative overflow-hidden">
-                        <div class="absolute top-2 right-2 px-2 py-0.5 bg-amber-500/20 text-amber-400 rounded-full text-[10px] font-bold">VIP</div>
-                        <h4 class="font-bold text-base text-amber-400 mb-1">កញ្ចប់ VIP</h4>
-                        <p class="text-xs text-slate-300 mb-3">ទទួលបានភ្លាម **1,000 កាក់**</p>
-                        <ul class="text-xs space-y-1.5 text-slate-300 mb-4">
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> សញ្ញាផ្កាយមាសលើ Profile</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> បង្កើនល្បឿនដាំដុះ ១០%</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> ពង្រីកកសិដ្ឋាន ២ កន្លែងបន្ថែម</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> រង្វាន់ចូលលេងប្រចាំថ្ងៃគុណនឹងពីរ</li>
-                        </ul>
-                        <button onclick="buyMembership('VIP', 1000)" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition">ទិញកញ្ចប់ VIP</button>
-                    </div>
-
-                    <!-- Monthly Package -->
-                    <div class="bg-gradient-to-br from-sky-950/40 to-slate-900 border border-sky-500/30 rounded-2xl p-4 relative overflow-hidden">
-                        <div class="absolute top-2 right-2 px-2 py-0.5 bg-sky-500/20 text-sky-400 rounded-full text-[10px] font-bold">ពេញនិយម</div>
-                        <h4 class="font-bold text-base text-sky-400 mb-1">កញ្ចប់ Monthly (ប្រចាំខែ)</h4>
-                        <p class="text-xs text-slate-300 mb-3">បាន 500 កាក់ភ្លាម + ហ្វ្រី **250 កាក់រៀងរាល់សប្តាហ៍**</p>
-                        <ul class="text-xs space-y-1.5 text-slate-300 mb-4">
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> កាត់បន្ថយម៉ោងស្រោចទឹកសល់ ១ម៉ោងកន្លះ</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> ដោះសោសួនផ្កាកុលាបមាសហ្វ្រី</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> ការពារផលដំណាំពេលអវត្តមាន</li>
-                        </ul>
-                        <button onclick="buyMembership('Monthly', 500)" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl text-xs transition">ទិញកញ្ចប់ Monthly</button>
-                    </div>
-
-                    <!-- Yearly Package -->
-                    <div class="bg-gradient-to-br from-purple-950/40 to-slate-900 border border-purple-500/30 rounded-2xl p-4 relative overflow-hidden">
-                        <div class="absolute top-2 right-2 px-2 py-0.5 bg-purple-500/20 text-purple-400 rounded-full text-[10px] font-bold">សន្សំសំចៃខ្លាំង</div>
-                        <h4 class="font-bold text-base text-purple-400 mb-1">កញ្ចប់ Yearly (ប្រចាំឆ្នាំ)</h4>
-                        <p class="text-xs text-slate-300 mb-3">បាន 100,000 កាក់ភ្លាម + ហ្វ្រី **1,000 កាក់រៀងរាល់សប្តាហ៍**</p>
-                        <ul class="text-xs space-y-1.5 text-slate-300 mb-4">
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> សត្វចិញ្ចឹម Legendary ហ្វ្រីភ្លាមៗ</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> ប្រព័ន្ធស្រោចទឹកស្វ័យប្រវត្តិ (Auto)</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> ឈ្មោះពណ៌មាសលើ Leaderboard</li>
-                            <li><i class="fa-solid fa-check text-emerald-400 mr-1.5"></i> រួមបញ្ចូលមុខងារ VIP និង Monthly ទាំងអស់</li>
-                        </ul>
-                        <button onclick="buyMembership('Yearly', 100000)" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-xl text-xs transition">ទិញកញ្ចប់ Yearly</button>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-        
-        <!-- FOOTER NAV BAR -->
-        <footer class="fixed bottom-0 max-w-md w-full bg-slate-900/90 backdrop-blur border-t border-slate-800 p-2.5 flex justify-around items-center z-40">
-            <button onclick="switchTab('farm')" class="flex flex-col items-center gap-1 text-emerald-400 text-[11px]">
-                <i class="fa-solid fa-tree text-base"></i> ចម្ការ
-            </button>
-            <button onclick="switchTab('animals')" class="flex flex-col items-center gap-1 text-slate-400 text-[11px]">
-                <i class="fa-solid fa-paw text-base"></i> សត្វ
-            </button>
-            <button onclick="switchTab('shop')" class="flex flex-col items-center gap-1 text-slate-400 text-[11px]">
-                <i class="fa-solid fa-store text-base"></i> ហាង
-            </button>
-            <button onclick="switchTab('membership')" class="flex flex-col items-center gap-1 text-slate-400 text-[11px]">
-                <i class="fa-solid fa-crown text-base"></i> VIP
-            </button>
-        </footer>
-
-    </div>
-
-    <!-- JAVASCRIPT GAME LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        let userCoins = 1250;
-        let userNameVal = "កសិករអាជីព";
+        let freeCoins = 1250;
+        let premiumGems = 50;
 
-        function login(method) {
-            if(method === 'Telegram') {
-                userNameVal = "Telegram Player";
-            } else if(method === 'Google') {
-                userNameVal = "Google User";
+        function topUpGems(amount, priceTag) {
+            premiumGems += amount;
+            document.getElementById('premiumGems').innerText = premiumGems;
+            alert(`🎉 បញ្ជាក់ការទូទាត់តម្លៃ ${priceTag} ជោគជ័យ! បន្ថែម ${amount} ពេជ្រចូលក្នុងកាបូបរបស់អ្នក។`);
+        }
+
+        function buyRealItem(itemName, price, currencyType) {
+            if(currencyType === 'gem') {
+                if(premiumGems >= price) {
+                    premiumGems -= price;
+                    document.getElementById('premiumGems').innerText = premiumGems;
+                    alert(`🎊 អបអរសាទរ! អ្នកបានទិញ "${itemName}" ប្រភេទ 3D ជោគជ័យ។`);
+                } else {
+                    alert("❌ ពេជ្ររបស់អ្នកមិនគ្រប់គ្រាន់ទេ! សូមទៅបញ្ចូលទឹកប្រាក់ (Top-up) បន្ថែម។");
+                }
             }
-            document.getElementById('userName').innerText = userNameVal;
-            document.getElementById('userAvatar').innerText = userNameVal.charAt(0);
-            
-            document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('gameApp').classList.remove('hidden');
-        }
-
-        function handleEmailLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            userNameVal = email.split('@')[0];
-            document.getElementById('userName').innerText = userNameVal;
-            document.getElementById('userAvatar').innerText = userNameVal.charAt(0).toUpperCase();
-
-            document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('gameApp').classList.remove('hidden');
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-            const icon = document.getElementById('themeIcon');
-            if(html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                icon.className = "fa-solid fa-moon";
-                document.body.className = "bg-slate-100 text-slate-900 min-h-screen flex flex-col transition-colors duration-300";
-            } else {
-                html.classList.add('dark');
-                icon.className = "fa-solid fa-sun";
-                document.body.className = "bg-slate-950 text-slate-100 min-h-screen flex flex-col transition-colors duration-300";
-            }
-        }
-
-        function switchTab(tabName) {
-            ['contentFarm', 'contentAnimals', 'contentShop', 'contentMembership'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
-            });
-            ['tabFarm', 'tabAnimals', 'tabShop', 'tabMembership'].forEach(id => {
-                document.getElementById(id).className = "flex-1 py-3 px-3 text-xs font-bold text-slate-400 border-b-2 border-transparent transition flex items-center justify-center gap-1.5 whitespace-nowrap";
-            });
-
-            if(tabName === 'farm') {
-                document.getElementById('contentFarm').classList.remove('hidden');
-                document.getElementById('tabFarm').className = "flex-1 py-3 px-3 text-xs font-bold text-emerald-400 border-b-2 border-emerald-500 transition flex items-center justify-center gap-1.5 whitespace-nowrap";
-            } else if(tabName === 'animals') {
-                document.getElementById('contentAnimals').classList.remove('hidden');
-                document.getElementById('tabAnimals').className = "flex-1 py-3 px-3 text-xs font-bold text-emerald-400 border-b-2 border-emerald-500 transition flex items-center justify-center gap-1.5 whitespace-nowrap";
-            } else if(tabName === 'shop') {
-                document.getElementById('contentShop').classList.remove('hidden');
-                document.getElementById('tabShop').className = "flex-1 py-3 px-3 text-xs font-bold text-amber-400 border-b-2 border-amber-500 transition flex items-center justify-center gap-1.5 whitespace-nowrap";
-            } else if(tabName === 'membership') {
-                document.getElementById('contentMembership').classList.remove('hidden');
-                document.getElementById('tabMembership').className = "flex-1 py-3 px-3 text-xs font-bold text-amber-400 border-b-2 border-amber-500 transition flex items-center justify-center gap-1.5 whitespace-nowrap";
-            }
-        }
-
-        function waterTree() {
-            userCoins += 50;
-            updateCoins();
-            alert("👏 ស្រោចទឹកដើមឈើជោគជ័យ! អ្នកទទួលបាន +50 កាក់។");
-        }
-
-        function collectAnimal(animalName, reward) {
-            userCoins += reward;
-            updateCoins();
-            alert(`🎉 បានប្រមូលផលពី "${animalName}" ជោគជ័យ! ទទួលបាន +${reward} កាក់។`);
-        }
-
-        function buyCoinPackage(coins, stars) {
-            userCoins += coins;
-            updateCoins();
-            alert(`🎊 ទិញកាក់ជោគជ័យ! បញ្ជាក់ការទូទាត់ ${stars} Stars ទទួលបាន ${coins.toLocaleString()} កាក់បន្ថែមចូលក្នុងគណនី។`);
-        }
-
-        function buyMembership(packageName, bonusCoins) {
-            userCoins += bonusCoins;
-            updateCoins();
-            alert(`👑 អបអរសាទរ! លោកអ្នកបានជាវកញ្ចប់ "${packageName}" ជោគជ័យ និងទទួលបាន ${bonusCoins.toLocaleString()} កាក់!`);
-        }
-
-        function updateCoins() {
-            document.getElementById('coinCount').innerText = userCoins.toLocaleString();
         }
     </script>
 </body>
