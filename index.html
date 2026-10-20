@@ -9,7 +9,7 @@
             font-family: 'Khmer OS Siemreap', Arial, sans-serif;
             background-color: #eef2f3;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             color: #333;
         }
         .game-container {
@@ -22,25 +22,36 @@
         }
         .stats {
             background: #e8f5e9;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             margin-bottom: 15px;
         }
-        .farm-yard {
-            font-size: 50px;
-            margin: 15px 0;
-            min-height: 70px;
+        /* จัดเรียงรายการในฟาร์มให้เป็นกริดสวยงาม */
+        .farm-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .farm-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 15px;
             font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
             margin: 5px;
             font-family: 'Khmer OS Siemreap', Arial, sans-serif;
+            width: 100%;
         }
         button:hover {
             background-color: #45a049;
@@ -49,6 +60,7 @@
             margin-top: 20px;
             border-top: 1px dashed #ccc;
             padding-top: 15px;
+            text-align: left;
         }
         .shop-item {
             display: flex;
@@ -58,6 +70,11 @@
             padding: 8px 12px;
             border-radius: 6px;
             margin-bottom: 8px;
+        }
+        .shop-item button {
+            width: auto;
+            margin: 0;
+            padding: 5px 12px;
         }
         .pay-btn {
             background-color: #ff9800;
@@ -73,44 +90,57 @@
         <h2>🏡 កសិដ្ឋានបែបខ្មែរ</h2>
         
         <div class="stats">
-            <p>💰 ប្រាក់/ពិន្ទុ: <span id="money">100</span> G</p>
-            <p>🌱 ដើមឈើ/សត្វក្នុងកសិដ្ឋាន:</p>
-            <div class="farm-yard" id="inventory">🐖 ដើមដូង</div>
+            <p>💰 ប្រាក់/ពិន្ទុ: <span id="money">340</span> G</p>
+            <p>🌱 សត្វ និងដើមឈើក្នុងកសិដ្ឋាន:</p>
+            <!-- កន្លែងបង្ហាញជាកាតស្អាត -->
+            <div class="farm-grid" id="inventory">
+                <!-- ទិន្នន័យនឹងត្រូវទម្លាក់ចូលទីនេះដោយស្វ័យប្រវត្តិ -->
+            </div>
         </div>
 
-        <button onclick="workFarm()">រកស៊ីចិញ្ចឹមជីវិត (+10 G)</button>
+        <button onclick="workFarm()">🛠️ រកស៊ីចិញ្ចឹមជីវិត (+20 G)</button>
 
         <div class="shop-section">
             <h3>🛒 ហាងទិញសត្វ និងដើមឈើ</h3>
             
             <div class="shop-item">
-                <span>🐄 គោ (តម្លៃ: 50 G)</span>
-                <button onclick="buyItem('🐄 គោ', 50)">ទិញ</button>
+                <span>🐄 គោ (100 G)</span>
+                <button onclick="buyItem('🐄 គោ', 100)">ទិញ</button>
             </div>
             
             <div class="shop-item">
-                <span>🍌 ដើមចេក (តម្លៃ: 30 G)</span>
-                <button onclick="buyItem('🍌 ដើមចេក', 30)">ទិញ</button>
+                <span>🍌 ដើមចេក (80 G)</span>
+                <button onclick="buyItem('🍌 ដើមចេក', 80)">ទិញ</button>
             </div>
 
             <div class="shop-item">
-                <span>⭐ ទិញលុយពិត (Telegram Stars)</span>
+                <span>🐖 ជ្រូក (120 G)</span>
+                <button onclick="buyItem('🐖 ជ្រូក', 120)">ទិញ</button>
+            </div>
+
+            <div class="shop-item">
+                <span>⭐ ដាក់លុយ (Telegram Stars)</span>
                 <button class="pay-btn" onclick="buyWithRealMoney()">ដាក់លុយ</button>
             </div>
         </div>
     </div>
 
     <script>
-        let money = 100;
-        let ownedItems = ["🐖 ជ្រូក", "🥥 ដើមដូង"];
+        let money = 340;
+        let ownedItems = ["🐖 ជ្រូក", "🥥 ដើមដូង", "ដើមដូង", "🐄 គោ"];
 
         function updateUI() {
             document.getElementById('money').innerText = money;
-            document.getElementById('inventory').innerText = ownedItems.join(" , ");
+            
+            let inventoryHTML = "";
+            ownedItems.forEach(item => {
+                inventoryHTML += `<div class="farm-card">${item}</div>`;
+            });
+            document.getElementById('inventory').innerHTML = inventoryHTML;
         }
 
         function workFarm() {
-            money += 10;
+            money += 20;
             updateUI();
         }
 
@@ -126,9 +156,7 @@
         }
 
         function buyWithRealMoney() {
-            // កន្លែងនេះសម្រាប់ភ្ជាប់ជាមួយ Telegram Web App Payment API ពេលដាក់លុយពិតប្រាកដ
             alert("មុខងារទូទាត់ប្រាក់ពិត (Telegram Stars) នឹងត្រូវតភ្ជាប់ទីនេះ!");
-            // ឧទាហរណ៍បន្ថែមលុយពេលតេស្ត៖
             money += 200;
             updateUI();
         }
