@@ -1,126 +1,655 @@
 <!DOCTYPE html>
-<html lang="km" class="dark">
+<html lang="km" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D World Farm - Premium Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Global Farm World - Professional Cute Game</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Preahvihear&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Kantumruy Pro', sans-serif; }</style>
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+    
+    <style>
+        :root {
+            --bg-primary: #f0f7f4;
+            --bg-card: #ffffff;
+            --text-color: #2c3e50;
+            --primary-color: #4CAF50;
+            --secondary-color: #FF9800;
+            --accent-color: #E91E63;
+            --diamond-color: #00bcd4;
+            --border-color: #e0e0e0;
+            --banner-bg: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
 
-    <!-- HEADER / CURRENCY BAR -->
-    <header class="flex items-center justify-between p-4 border-b border-slate-900 bg-slate-900/80 backdrop-blur sticky top-0 z-40">
-        <div class="flex items-center gap-2">
-            <div class="w-9 h-9 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center font-bold">3D</div>
-            <h1 class="font-bold text-sm">World Farm 3D</h1>
+        [data-theme="dark"] {
+            --bg-primary: #121212;
+            --bg-card: #1e1e1e;
+            --text-color: #e0e0e0;
+            --primary-color: #66bb6a;
+            --secondary-color: #ffa726;
+            --accent-color: #f48fb1;
+            --diamond-color: #26c6da;
+            --border-color: #333333;
+            --banner-bg: linear-gradient(135deg, #1f4037 0%, #99f2c8 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Preahvihear', sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 40px;
+        }
+
+        /* Top Navigation & Controls */
+        header {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--bg-card);
+            border-bottom: 2px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-color);
+            object-fit: cover;
+        }
+
+        .currencies {
+            display: flex;
+            gap: 15px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .currency-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0,0,0,0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .currency-badge i.fa-coins { color: #f39c12; }
+        .currency-badge i.fa-gem { color: var(--diamond-color); }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-icon {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .btn-icon:hover {
+            transform: scale(1.05);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Banner Section */
+        .banner {
+            width: 100%;
+            max-width: 1200px;
+            height: 220px;
+            background: var(--banner-bg);
+            margin: 20px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+
+        .banner p {
+            color: #fff;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Main Game Layout */
+        .game-container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        @media(max-width: 900px) {
+            .game-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        /* Farm Grid */
+        .farm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .farm-plot {
+            background: var(--bg-primary);
+            border: 2px dashed var(--border-color);
+            border-radius: 15px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .farm-plot.occupied {
+            border: 2px solid var(--primary-color);
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        .farm-plot img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Shop Section */
+        .shop-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-color);
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .shop-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .shop-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .shop-item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .shop-item-info img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .buy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .buy-btn.diamond {
+            background: var(--diamond-color);
+        }
+
+        /* Modals (Popup) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-color);
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        /* Telegram Star Packages */
+        .star-packages {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .star-pkg {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            padding: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .star-pkg:hover {
+            border-color: var(--diamond-color);
+            background: rgba(0, 188, 212, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Nav -->
+    <header>
+        <div class="user-info">
+            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=FarmerJohn" class="avatar" id="userAvatar">
+            <div>
+                <h4 id="usernameDisplay">ProFarmer</h4>
+                <small style="color:var(--primary-color)">⭐ VIP Level 1</small>
+            </div>
         </div>
-        <div class="flex items-center gap-3">
-            <!-- Free Coins -->
-            <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-3 py-1 rounded-full text-xs">
-                <i class="fa-solid fa-coins text-amber-400"></i>
-                <span id="freeCoins" class="font-bold text-amber-400">1,250</span>
+
+        <div class="currencies">
+            <div class="currency-badge">
+                <i class="fa-solid fa-coins"></i> <span id="coinCount">1,500</span>
             </div>
-            <!-- Premium Gems (Top-up Required) -->
-            <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-3 py-1 rounded-full text-xs">
-                <i class="fa-solid fa-gem text-cyan-400"></i>
-                <span id="premiumGems" class="font-bold text-cyan-400">50</span>
+            <div class="currency-badge">
+                <i class="fa-solid fa-gem"></i> <span id="diamondCount">50</span>
             </div>
+        </div>
+
+        <div class="header-actions">
+            <button class="btn-icon" onclick="toggleTheme()" title="ប្តូរ Dark/Light Mode"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+            <button class="btn-icon" onclick="openModal('shopModal')" title="ទិញកាក់/ពេជ្រ"><i class="fa-solid fa-store"></i></button>
+            <button class="btn-icon" onclick="openModal('loginModal')" title="គណនី (Login)"><i class="fa-solid fa-user"></i></button>
         </div>
     </header>
 
-    <!-- SHOP CONTAINER -->
-    <main class="flex-1 p-4 max-w-md mx-auto w-full space-y-6">
-        
-        <!-- SECTION 1: TOP-UP STORE (បង់លុយទិញកាក់/ពេជ្រមុន) -->
-        <div class="bg-gradient-to-br from-cyan-950/40 to-slate-900 border border-cyan-500/30 rounded-2xl p-4">
-            <div class="flex items-center justify-between mb-3">
-                <h3 class="font-bold text-sm text-cyan-400 flex items-center gap-2">
-                    <i class="fa-solid fa-credit-card"></i> បញ្ចូលទឹកប្រាក់ (Top-up Store)
-                </h3>
-                <span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full">Telegram Stars ⭐</span>
-            </div>
-            <p class="text-xs text-slate-400 mb-3">ទិញពេជ្រ/កាក់ពិសេស ដើម្បីយកទៅដោះសោសត្វ និងដើមឈើកម្រៗនៅលើផែនដី!</p>
-            
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-center">
-                    <div class="text-cyan-400 text-xl mb-1"><i class="fa-solid fa-gem"></i></div>
-                    <h4 class="font-bold text-xs">100 ពេជ្រ</h4>
-                    <p class="text-[10px] text-slate-400 mb-2">តម្លៃ: 50 Stars</p>
-                    <button onclick="topUpGems(100, '50 Stars')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-1.5 rounded-lg text-xs font-bold transition">ទិញឥឡូវ</button>
-                </div>
-                <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl text-center">
-                    <div class="text-cyan-400 text-xl mb-1"><i class="fa-solid fa-gem"></i></div>
-                    <h4 class="font-bold text-xs">500 ពេជ្រ + ហ្វ្រី 50</h4>
-                    <p class="text-[10px] text-slate-400 mb-2">តម្លៃ: 200 Stars</p>
-                    <button onclick="topUpGems(550, '200 Stars')" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-1.5 rounded-lg text-xs font-bold transition">ទិញឥឡូវ</button>
-                </div>
+    <!-- Professional Cute Banner -->
+    <section class="banner">
+        <h1>🌟 Global Farm World 🐾</h1>
+        <p>ចិញ្ចឹមសត្វគ្រប់ប្រភេទលើផែនដី ប្រមូលផលប្រាក់ និងទិញសត្វកម្រលំដាប់ពិភពលោក!</p>
+        <button class="btn-primary" onclick="openModal('shopModal')"><i class="fa-solid fa-star"></i> ទិញ Telegram Stars យកពេជ្រ</button>
+    </section>
+
+    <!-- Game Main Layout -->
+    <div class="game-container">
+        <!-- Farm Grid Area -->
+        <div class="card">
+            <h3><i class="fa-solid fa-tractor"></i> កសិដ្ឋានរបស់ខ្ញុំ (<span id="plotCount">6</span> ក្រឡា)</h3>
+            <div class="farm-grid" id="farmGrid">
+                <!-- Plots generated via JS -->
             </div>
         </div>
 
-        <!-- SECTION 2: 3D REAL-WORLD SHOP (ទិញសត្វ និងដើមឈើស្អាតៗ) -->
-        <div>
-            <h3 class="font-bold text-sm text-amber-400 mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-earth-americas"></i> ហាងទំនិញ 3D ធម្មជាតិពិភពលោក
-            </h3>
-            
-            <div class="space-y-3">
-                <!-- Item 1 -->
-                <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-2xl">
-                            <i class="fa-solid fa-horse"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-xs">សេះអារ៉ាប់ 3D (Arabian Horse)</h4>
-                            <span class="text-[11px] text-cyan-400 font-bold"><i class="fa-solid fa-gem"></i> 120 ពេជ្រ</span>
-                        </div>
-                    </div>
-                    <button onclick="buyRealItem('សេះអារ៉ាប់ 3D', 120, 'gem')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">ទិញ</button>
-                </div>
+        <!-- Shop & Animals Marketplace -->
+        <div class="card">
+            <h3><i class="fa-solid fa-shop"></i> ហាងលក់សត្វពិភពលោក</h3>
+            <div class="shop-tabs">
+                <button class="tab-btn active" onclick="switchTab('normal')">សត្វធម្មតា (កាក់)</button>
+                <button class="tab-btn" onclick="switchTab('legendary')">សត្វកម្រ (ពេជ្រ ⭐)</button>
+            </div>
+            <div class="shop-list" id="shopList">
+                <!-- Shop items loaded via JS -->
+            </div>
+        </div>
+    </div>
 
-                <!-- Item 2 -->
-                <div class="bg-slate-900 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center text-2xl">
-                            <i class="fa-solid fa-tree"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-xs">ដើមសាក់ខូរ៉ាជប៉ុន (Cherry Blossom)</h4>
-                            <span class="text-[11px] text-cyan-400 font-bold"><i class="fa-solid fa-gem"></i> 80 ពេជ្រ</span>
-                        </div>
-                    </div>
-                    <button onclick="buyRealItem('ដើមសាក់ខូរ៉ាជប៉ុន', 80, 'gem')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">ទិញ</button>
+    <!-- Modals -->
+    <!-- Shop / Payment Modal (Telegram Stars) -->
+    <div class="modal" id="shopModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('shopModal')">&times;</button>
+            <h2>💎 ទិញពេជ្រ (Telegram Stars)</h2>
+            <p style="font-size: 13px; margin-bottom: 10px;">ទិញពេជ្រដើម្បីដោះសោសត្វស្អាតៗ តម្លៃថ្លៃ និងកម្រខ្លាំង!</p>
+            
+            <div class="star-packages">
+                <div class="star-pkg" onclick="buyViaTelegramStars(10, 100)">
+                    <h4>⭐ 10 Stars</h4>
+                    <p style="color:var(--diamond-color); font-weight:bold;">💎 100 ពេជ្រ</p>
+                </div>
+                <div class="star-pkg" onclick="buyViaTelegramStars(50, 600)">
+                    <h4>⭐ 50 Stars</h4>
+                    <p style="color:var(--diamond-color); font-weight:bold;">💎 600 ពេជ្រ</p>
+                </div>
+                <div class="star-pkg" onclick="buyViaTelegramStars(200, 2600)">
+                    <h4>⭐ 200 Stars</h4>
+                    <p style="color:var(--diamond-color); font-weight:bold;">💎 2,600 ពេជ្រ</p>
+                </div>
+                <div class="star-pkg" onclick="buyViaTelegramStars(1000, 15000)">
+                    <h4>⭐ 1,000 Stars</h4>
+                    <p style="color:var(--diamond-color); font-weight:bold;">💎 15,000 ពេជ្រ</p>
                 </div>
             </div>
         </div>
+    </div>
 
-    </main>
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('loginModal')">&times;</button>
+            <h2>🔐 ចូលគណនីហ្គេម</h2>
+            <input type="text" id="loginInput" placeholder="បញ្ចូលឈ្មោះអ្នកលេង...">
+            <button class="btn-primary" style="width:100%; margin-top:10px;" onclick="saveLogin()">ចូលលេង</button>
+        </div>
+    </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        let freeCoins = 1250;
-        let premiumGems = 50;
+        // Game State
+        let gameState = {
+            username: "ProFarmer",
+            coins: 1500,
+            diamonds: 50,
+            plots: [null, null, null, null, null, null],
+            activeTab: 'normal'
+        };
 
-        function topUpGems(amount, priceTag) {
-            premiumGems += amount;
-            document.getElementById('premiumGems').innerText = premiumGems;
-            alert(`🎉 បញ្ជាក់ការទូទាត់តម្លៃ ${priceTag} ជោគជ័យ! បន្ថែម ${amount} ពេជ្រចូលក្នុងកាបូបរបស់អ្នក។`);
+        // Animal Database (Global Animals)
+        const animals = {
+            normal: [
+                { id: 'cow', name: 'គោទឹកដោះ (Cow)', price: 200, currency: 'coins', income: 20, img: 'https://api.iconify.design/fluent-emoji:cow.svg' },
+                { id: 'pig', name: 'ជ្រូកកសិដ្ឋាន (Pig)', price: 350, currency: 'coins', income: 35, img: 'https://api.iconify.design/fluent-emoji:pig.svg' },
+                { id: 'chicken', name: 'មាន់ស្រែ (Chicken)', price: 100, currency: 'coins', income: 10, img: 'https://api.iconify.design/fluent-emoji:chicken.svg' },
+                { id: 'sheep', name: 'ចៀមរោមទន់ (Sheep)', price: 500, currency: 'coins', income: 50, img: 'https://api.iconify.design/fluent-emoji:sheep.svg' }
+            ],
+            legendary: [
+                { id: 'panda', name: 'ខ្លាឃ្មុំផេនដា (Panda)', price: 150, currency: 'diamonds', income: 200, img: 'https://api.iconify.design/fluent-emoji:panda.svg' },
+                { id: 'lion', name: 'ស្តេចតោ (Lion)', price: 500, currency: 'diamonds', income: 800, img: 'https://api.iconify.design/fluent-emoji:lion.svg' },
+                { id: 'unicorn', name: 'សេះសួគ៌ ယူនិខន (Unicorn)', price: 2000, currency: 'diamonds', income: 4000, img: 'https://api.iconify.design/fluent-emoji:unicorn.svg' },
+                { id: 'dragon', name: 'នាគរាជមាស (Golden Dragon)', price: 10000, currency: 'diamonds', income: 25000, img: 'https://api.iconify.design/fluent-emoji:dragon.svg' }
+            ]
+        };
+
+        // Initialize Game UI
+        function initGame() {
+            renderStats();
+            renderFarm();
+            renderShop();
         }
 
-        function buyRealItem(itemName, price, currencyType) {
-            if(currencyType === 'gem') {
-                if(premiumGems >= price) {
-                    premiumGems -= price;
-                    document.getElementById('premiumGems').innerText = premiumGems;
-                    alert(`🎊 អបអរសាទរ! អ្នកបានទិញ "${itemName}" ប្រភេទ 3D ជោគជ័យ។`);
+        function renderStats() {
+            document.getElementById('coinCount5') || (document.getElementById('coinCount').innerText = gameState.coins.toLocaleString());
+            document.getElementById('diamondCount').innerText = gameState.diamonds.toLocaleString());
+            document.getElementById('usernameDisplay').innerText = gameState.username;
+            document.getElementById('plotCount').innerText = gameState.plots.length;
+        }
+
+        function renderFarm() {
+            const grid = document.getElementById('farmGrid');
+            grid.innerHTML = '';
+            gameState.plots.forEach((animal, index) => {
+                const plot = document.createElement('div');
+                plot.className = `farm-plot ${animal ? 'occupied' : ''}`;
+                if (animal) {
+                    plot.innerHTML = `
+                        <img src="${animal.img}" title="${animal.name}">
+                        <small style="font-size:10px; margin-top:2px;">+${animal.income}/h</small>
+                    `;
+                    plot.onclick = () => collectIncome(index);
                 } else {
-                    alert("❌ ពេជ្ររបស់អ្នកមិនគ្រប់គ្រាន់ទេ! សូមទៅបញ្ចូលទឹកប្រាក់ (Top-up) បន្ថែម។");
+                    plot.innerHTML = `<i class="fa-solid fa-plus" style="color:var(--border-color); font-size:24px;"></i>`;
+                    plot.onclick = () => alert("សូមទិញសត្វពីហាងដើម្បីដាក់ចូលក្នុងក្រឡានេះ!");
+                }
+                grid.appendChild(plot);
+            });
+        }
+
+        function renderShop() {
+            const list = document.getElementById('shopList');
+            list.innerHTML = '';
+            const items = animals[gameState.activeTab];
+            
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'shop-item';
+                div.innerHTML = `
+                    <div class="shop-item-info">
+                        <img src="${item.img}">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small style="color:${item.currency === 'coins' ? '#f39c12' : 'var(--diamond-color)'};">
+                                ${item.price.toLocaleString()} ${item.currency === 'coins' ? 'កាក់' : 'ពេជ្រ ⭐'}
+                            </small>
+                        </div>
+                    </div>
+                    <button class="buy-btn ${item.currency === 'diamonds' ? 'diamond' : ''}" onclick="buyAnimal('${item.id}')">ទិញ</button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function switchTab(tab) {
+            gameState.activeTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderShop();
+        }
+
+        function buyAnimal(animalId) {
+            let animal = [...animals.normal, ...animals.legendary].find(a => a.id === animalId);
+            
+            // Check funds
+            if (animal.currency === 'coins') {
+                if (gameState.coins < animal.price) {
+                    alert('❌ កាក់របស់អ្នកមិនគ្រប់គ្រាន់ទេ!');
+                    return;
+                }
+                gameState.coins -= animal.price;
+            } else {
+                if (gameState.diamonds < animal.price) {
+                    alert('❌ ពេជ្ររបស់អ្នកមិនគ្រប់គ្រាន់ទេ! សូមទិញបន្ថែមតាម Telegram Stars 💎');
+                    return;
+                }
+                gameState.diamonds -= animal.price;
+            }
+
+            // Find empty plot
+            const emptyIndex = gameState.plots.findIndex(p => p === null);
+            if (emptyIndex === -1) {
+                alert('❌ កសិដ្ឋានរបស់អ្នកពេញហើយ! សូមពង្រីកក្រឡាបន្ថែម។');
+                return;
+            }
+
+            gameState.plots[emptyIndex] = animal;
+            renderStats();
+            renderFarm();
+            alert(`🎉 សូមអបអរសាទរ! អ្នកបានទិញ ${animal.name} ជោគជ័យ។`);
+        }
+
+        function collectIncome(index) {
+            const animal = gameState.plots[index];
+            if (animal) {
+                gameState.coins += animal.income;
+                renderStats();
+                alert(`💰 ប្រមូលផលបាន +${animal.income} កាក់ពី ${animal.name}!`);
+            }
+        }
+
+        // Theme Toggle (Dark/Light)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            if (html.getAttribute('data-theme') === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                html.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        // Modal Controls
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function saveLogin() {
+            const name = document.getElementById('loginInput').value.trim();
+            if (name) {
+                gameState.username = name;
+                renderStats();
+                closeModal('loginModal');
+                alert(`👋 សូមស្វាគមន៍ការវិលត្រឡប់មកវិញ, ${name}!`);
+            }
+        }
+
+        // Telegram Stars Payment Integration Simulation
+        function buyViaTelegramStars(stars, diamonds) {
+            if (confirm(`តើអ្នកចង់ទិញ ${diamonds} ពេជ្រ ជាមួយតម្លៃ ${stars} Telegram Stars មែនទេ?`)) {
+                // Trigger Telegram WebApp API if running inside Telegram Mini App
+                if (window.Telegram && window.Telegram.WebApp) {
+                    // កូដសម្រាប់បើក Telegram Stars Invoice ពិតប្រាកដ (ត្រូវការ Bot Backend)
+                    alert("กำลังเชื่อมต่อ Telegram Payment Gateway...");
+                } else {
+                    // សាធារណការจำลองការទិញជោគជ័យសម្រាប់ Demo
+                    setTimeout(() => {
+                        gameState.diamonds += diamonds;
+                        renderStats();
+                        closeModal('shopModal');
+                        alert(`✨ ទិញជោគជ័យ! បន្ថែម ${diamonds} ពេជ្រចូលក្នុងគណនីរបស់អ្នករួចរាល់។`);
+                    }, 1000);
                 }
             }
         }
+
+        // Run Init
+        initGame();
     </script>
 </body>
 </html>
